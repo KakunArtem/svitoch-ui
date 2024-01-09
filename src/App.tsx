@@ -1,4 +1,4 @@
-import {Cards, DHeader, GenerateCourse, GetCourse} from "./components";
+import {Cards, DHeader} from "./components";
 import React, {Component} from "react";
 import SearchBar from "./components/search-bar"
 
@@ -15,20 +15,11 @@ class App extends Component {
                 <DHeader/>
                 <Cards/>
                 <div
-                style={{
-                    marginTop: '90px'
-                }}>
+                    style={{
+                        marginTop: '90px'
+                    }}>
                     <SearchBar/>
                 </div>
-                {/*<div style={{*/}
-                {/*    display: 'flex',*/}
-                {/*    justifyContent: 'center',*/}
-                {/*    alignItems: 'center',*/}
-                {/*    minHeight: '20vh',*/}
-                {/*}}>*/}
-                {/*    <GenerateCourse/>*/}
-                {/*    <GetCourse/>*/}
-                {/*</div>*/}
             </div>
         )
     }

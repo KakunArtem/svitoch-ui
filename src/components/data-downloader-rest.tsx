@@ -1,11 +1,13 @@
+import {Urls} from "../configs/config-urls";
+
 class DownloadData {
 
     public async downloadData(format: string, uuid: any) {
         try {
-            const response = await fetch(`http://localhost:8080/v1/courses/uuid/${uuid}`);
+            const response = await fetch(`${Urls.baseUrl}/v1/courses/uuid/${uuid}`);
             let data = await response.json();
 
-            if(format === 'md'){
+            if (format === 'md') {
                 data = Object.values(data.course_content.content).map(value => value.content.replace(/\\n/g, '\n')).join('\n');
             } else {
                 data = JSON.stringify(data);
@@ -46,20 +48,20 @@ class DownloadData {
 
     public async getCourseData(uuid: any) {
         try {
-            const response = await fetch(`http://localhost:8080/v1/courses/uuid/${uuid}`);
+            const response = await fetch(`${Urls.baseUrl}/v1/courses/uuid/${uuid}`);
             if (!response.ok) {
-                if(response.status >= 400 && response.status < 500) {
+                if (response.status >= 400 && response.status < 500) {
                     console.log("Course not found");
                     return "Course not found";
                 }
                 throw new Error(response.statusText);
             }
             let data = await response.json();
-            if(data.message === "Course generation is in progress") {
+            if (data.message === "Course generation is in progress") {
                 console.log("Course generation is in progress");
                 return "Course generation is in progress";
             }
-            if(data.course_content) {
+            if (data.course_content) {
                 let updatedData = Object.entries(data.course_content.content).reduce((acc, [key, value]) => {
                     acc[key] = {...value, content: value.content.replace(/\\n/g, '\n')};
                     return acc;

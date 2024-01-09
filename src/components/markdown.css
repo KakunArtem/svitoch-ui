@@ -11,7 +11,7 @@
 
 .markdown p {
     line-height: 1.5; /* control line spacing within the paragraph */
-    margin-bottom: 0.0.1em; /* control margin between paragraphs */
+    margin-bottom: 0.0 .1em; /* control margin between paragraphs */
 }
 
 .markdown pre {

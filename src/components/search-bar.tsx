@@ -4,6 +4,7 @@ import CourseTab from "./course-tab";
 import Icon from '@mdi/react';
 import {mdiMagnify} from '@mdi/js';
 import {GenerateCourse, GetCourse} from "./index";
+import {Urls} from "../configs/config-urls";
 
 class SearchBar extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class SearchBar extends Component {
         }
 
         this.setState({loaded: false, isClickedOutside: false}, () => {
-            fetch(`http://localhost:8080/v1/courses/name/${this.state.course_name}`)
+            fetch(`${Urls.baseUrl}/v1/courses/name/${this.state.course_name}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0) {
@@ -75,7 +76,7 @@ class SearchBar extends Component {
 
     handleCourseData = async (uuid) => {
         try {
-            const response = await fetch(`http://localhost:8080/v1/courses/uuid/${uuid}`);
+            const response = await fetch(`${Urls.baseUrl}/v1/courses/uuid/${uuid}`);
             const courseData = await response.json();
             this.setState({courseData: courseData, showAlert: false, showCourseTab: true, uuid: uuid});
         } catch (error) {

@@ -3,6 +3,7 @@ import {Alert, Button, Card, Divider, IconButton, Switch, TextField} from 'ui-ne
 import withResize from "../hocs/withResize";
 import Icon from "@mdi/react";
 import {mdiClose} from "@mdi/js";
+import {Urls} from "../configs/config-urls";
 
 class BuildCourseTab extends Component {
 
@@ -44,7 +45,7 @@ class BuildCourseTab extends Component {
                 "text": courseName
             };
             endpoint = (endpoint === 'base_lessons') ? 'base_course' : 'advance_course'
-            this.sendData(`http://localhost:8080/v1/courses/${endpoint}`, finalData, true);
+            this.sendData(`${Urls.baseUrl}/v1/courses/${endpoint}`, finalData, true);
         } else {
             // If array is not empty
             let finalLessons = lessons.map(lesson => ({
@@ -59,11 +60,11 @@ class BuildCourseTab extends Component {
                 }
             };
 
-            if(this.state.language) {
+            if (this.state.language) {
                 finalData.language = this.state.language;
             }
 
-            this.sendData(`http://localhost:8080/v1/1lessons/${endpoint}`, finalData, false);
+            this.sendData(`${Urls.baseUrl}/v1/1lessons/${endpoint}`, finalData, false);
         }
 
         this.setState({lessons: [], courseName: '', isSubmitted: true});
@@ -115,7 +116,7 @@ class BuildCourseTab extends Component {
     render() {
         return (
             <>
-                <div style={{ position: 'relative' }}>
+                <div style={{position: 'relative'}}>
                     {this.state.showAlert &&
                         <div style={{
                             position: 'fixed',
@@ -134,100 +135,101 @@ class BuildCourseTab extends Component {
                             </Alert>
                         </div>
                     }
-                {
-                    this.state.isSubmitted ? "" :
-                        <Card rounded={true} raised width={600}
-                              style={{
-                                  marginLeft: "10px",
-                                  marginRight: "2px",
-                                  marginTop: "10px",
-                                  padding: "10px",
-                                  overflow: 'auto'
-                              }}>
-                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                                <TextField
-                                    rounded={true}
-                                    style={{
-                                        marginLeft: "14px",
-                                        marginRight: "2px",
-                                        marginTop: "10px",
-                                        padding: "10px",
-                                        overflow: 'auto'
-                                    }}
-                                    label="Course Name"
-                                    value={this.state.courseName.toString()}
-                                    onChange={this.handleChange}
-                                />
-                                <TextField
-                                    rounded={true}
-                                    style={{
-                                        marginLeft: "14px",
-                                        marginRight: "2px",
-                                        marginTop: "10px",
-                                        padding: "10px",
-                                        overflow: 'auto'
-                                    }}
-                                    width={120}
-                                    label="Language"
-                                    value={this.state.language.toString()}
-                                    onChange={this.handleLanguageChange}
-                                />
-                                <Switch color='var(--primary)' label={"GPT 3/4"} onChange={this.handleSwitchChange}/>
-                            </div>
-                            <Divider dense/>
-                            {
-                                this.state.lessons.map((lesson, index) => (
-                                    <Card flat={true} rounded={true}
-                                          key={`lesson-${lesson.id}`}
-                                          width={280}
-                                          height={120}
-                                          style={{
-                                              marginLeft: "10px",
-                                              marginRight: "2px",
-                                              marginTop: "2px",
-                                              padding: "2px",
-                                              margin: "10px"
-                                          }}>
-                                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                            <div>
-                                                <TextField
-                                                    rounded={true}
-                                                    label="Lesson"
-                                                    value={lesson.title.toString()}
-                                                    onChange={(value) => this.handleLessonChange(value, index, "title")}
-                                                />
-                                                <TextField
-                                                    rounded={true}
-                                                    label="Topics"
-                                                    value={lesson.topics.toString()}
-                                                    onChange={(value) => this.handleLessonChange(value, index, "topics")}
+                    {
+                        this.state.isSubmitted ? "" :
+                            <Card rounded={true} raised width={600}
+                                  style={{
+                                      marginLeft: "10px",
+                                      marginRight: "2px",
+                                      marginTop: "10px",
+                                      padding: "10px",
+                                      overflow: 'auto'
+                                  }}>
+                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                                    <TextField
+                                        rounded={true}
+                                        style={{
+                                            marginLeft: "14px",
+                                            marginRight: "2px",
+                                            marginTop: "10px",
+                                            padding: "10px",
+                                            overflow: 'auto'
+                                        }}
+                                        label="Course Name"
+                                        value={this.state.courseName.toString()}
+                                        onChange={this.handleChange}
+                                    />
+                                    <TextField
+                                        rounded={true}
+                                        style={{
+                                            marginLeft: "14px",
+                                            marginRight: "2px",
+                                            marginTop: "10px",
+                                            padding: "10px",
+                                            overflow: 'auto'
+                                        }}
+                                        width={120}
+                                        label="Language"
+                                        value={this.state.language.toString()}
+                                        onChange={this.handleLanguageChange}
+                                    />
+                                    <Switch color='var(--primary)' label={"GPT 3/4"}
+                                            onChange={this.handleSwitchChange}/>
+                                </div>
+                                <Divider dense/>
+                                {
+                                    this.state.lessons.map((lesson, index) => (
+                                        <Card flat={true} rounded={true}
+                                              key={`lesson-${lesson.id}`}
+                                              width={280}
+                                              height={120}
+                                              style={{
+                                                  marginLeft: "10px",
+                                                  marginRight: "2px",
+                                                  marginTop: "2px",
+                                                  padding: "2px",
+                                                  margin: "10px"
+                                              }}>
+                                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                                <div>
+                                                    <TextField
+                                                        rounded={true}
+                                                        label="Lesson"
+                                                        value={lesson.title.toString()}
+                                                        onChange={(value) => this.handleLessonChange(value, index, "title")}
+                                                    />
+                                                    <TextField
+                                                        rounded={true}
+                                                        label="Topics"
+                                                        value={lesson.topics.toString()}
+                                                        onChange={(value) => this.handleLessonChange(value, index, "topics")}
 
-                                                />
+                                                    />
+                                                </div>
+                                                <IconButton rounded={true} size={"small"}
+                                                            onClick={() => this.deleteLesson(index)}
+                                                            bgcolor='#ccc'
+                                                            style={{
+                                                                marginLeft: "5px",
+                                                                marginRight: "5px",
+                                                                marginTop: "8px"
+                                                            }}>
+                                                    <Icon path={mdiClose} size={1}/>
+                                                </IconButton>
                                             </div>
-                                            <IconButton rounded={true} size={"small"}
-                                                        onClick={() => this.deleteLesson(index)}
-                                                        bgcolor='#ccc'
-                                                        style={{
-                                                            marginLeft: "5px",
-                                                            marginRight: "5px",
-                                                            marginTop: "8px"
-                                                        }}>
-                                                <Icon path={mdiClose} size={1}/>
-                                            </IconButton>
-                                        </div>
-                                    </Card>
-                                ))
-                            }
-                            <Button rounded={true} size={"small"} onClick={this.addLesson} bgcolor='#ccc'
-                                    style={{marginLeft: "23px", marginRight: "2px", marginTop: "10px"}}>
-                                + Lesson
-                            </Button>
-                            <Button rounded={true} size={"small"} onClick={this.handleSubmit} bgcolor='#ccc'
-                                    style={{marginLeft: "23px", marginRight: "2px", marginTop: "10px"}}>
-                                Submit
-                            </Button>
-                        </Card>
-                }
+                                        </Card>
+                                    ))
+                                }
+                                <Button rounded={true} size={"small"} onClick={this.addLesson} bgcolor='#ccc'
+                                        style={{marginLeft: "23px", marginRight: "2px", marginTop: "10px"}}>
+                                    + Lesson
+                                </Button>
+                                <Button rounded={true} size={"small"} onClick={this.handleSubmit} bgcolor='#ccc'
+                                        style={{marginLeft: "23px", marginRight: "2px", marginTop: "10px"}}>
+                                    Submit
+                                </Button>
+                            </Card>
+                    }
                 </div>
             </>
         )

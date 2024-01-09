@@ -12,7 +12,7 @@ class DHeader extends Component {
                      width: '100%',
                      transform: 'translate(0px, 40px)'
                  }}>
-                <Divider />
+                <Divider/>
             </div>
         ]
     }
