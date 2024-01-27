@@ -64,7 +64,7 @@ class BuildCourseTab extends Component {
                 finalData.language = this.state.language;
             }
 
-            this.sendData(`${Urls.baseUrl}/v1/1lessons/${endpoint}`, finalData, false);
+            this.sendData(`${Urls.baseUrl}/v1/lessons/${endpoint}`, finalData, false);
         }
 
         this.setState({lessons: [], courseName: '', isSubmitted: true});
